@@ -1,7 +1,7 @@
 let min = 1,
     max = 10,
     guessLeft = 3;
-    winningNo = 2;
+    winningNo = Math.floor(Math.random()*(max-min+1)+(min));
 
 const game = document.querySelector('.card'),
       minNo = document.querySelector('.min'),
