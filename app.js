@@ -26,7 +26,15 @@ submitBtn.addEventListener('click', function(e){
         }
         else{
             input.value = '';
-            setMessage(`${guess} was not the correct number. Try Again.`, 'red');
+            guessLeft -= 1;
+            if(guessLeft!==0){
+                setMessage(`${guess} was not the correct number. ${guessLeft} guesses left. Try Again.`, 'red');
+            }
+            else{
+                input.disabled = true;
+                setMessage(`Game OVER. Correct number was ${winningNo}.`, 'red');
+            }
+            
         }
     }
 
@@ -39,5 +47,6 @@ submitBtn.addEventListener('click', function(e){
 
 function setMessage(str, color){
     message.textContent = str;
-    input.style.borderColor = color
+    input.style.borderColor = color;
+    message.style.color = color;
 }
