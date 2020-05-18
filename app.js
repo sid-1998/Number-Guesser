@@ -13,6 +13,12 @@ const game = document.querySelector('.card'),
 minNo.textContent = min;
 maxNo.textContent = max;
 
+game.addEventListener('mousedown', function(e){
+    if(e.target.classList.contains('play-again')){
+        window.location.reload();
+    }
+})
+
 submitBtn.addEventListener('click', function(e){
     const guess = parseInt(input.value);
     if(isNaN(guess) || guess<min || guess>max){
@@ -23,25 +29,24 @@ submitBtn.addEventListener('click', function(e){
         if(guess === winningNo){
             input.disabled = true;
             setMessage(`${guess} is correct. You WON!!.`, 'green')
+            gameOver();
         }
         else{
-            input.value = '';
             guessLeft -= 1;
             if(guessLeft!==0){
                 setMessage(`${guess} was not the correct number. ${guessLeft} guesses left. Try Again.`, 'red');
+                input.value = '';
             }
             else{
                 input.disabled = true;
                 setMessage(`Game OVER. Correct number was ${winningNo}.`, 'red');
+                gameOver();
             }
             
+        
         }
     }
 
-
-
-    console.log(input.value);
-    
     e.preventDefault();
 })
 
@@ -49,4 +54,9 @@ function setMessage(str, color){
     message.textContent = str;
     input.style.borderColor = color;
     message.style.color = color;
+}
+
+function gameOver(){
+    submitBtn.value = 'Play Again';
+    submitBtn.className += ' play-again';
 }
